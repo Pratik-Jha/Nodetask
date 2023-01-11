@@ -6,7 +6,7 @@ const router = express.Router()
 const models = require('./models/index')
 const { authAdmin } = require('./middlewares/auth')
 
-function sendMail(userMail) {
+function sendMail(userMail,info) {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -35,8 +35,10 @@ function sendMail(userMail) {
         // html:body
         template: 'email',
         context: {
-            title: 'Hi everyone',
-            text: "Lorem ipsum dolor sit amet, consectetur..."
+            // title: 'Hi everyone',
+            name: info.name,
+            body: info.body,
+            // text: "Lorem ipsum dolor sit amet, consectetur..."
         }
     };
 
@@ -76,7 +78,7 @@ router.post('/sendMail', async (request, response) => {
                         id: id
                     }
                 })
-                sendMail(user.email) // Function call.
+                sendMail(user.email,request.body.info) // Function call.
             });
         }
         if (request.body.groupId) {
@@ -91,7 +93,7 @@ router.post('/sendMail', async (request, response) => {
                         id: row.id
                     }
                 })
-                sendMail(user.email) // Function call.
+                sendMail(user.email,request.body.info) // Function call.
             });
         }
         response.status(200).json('Email sent.')

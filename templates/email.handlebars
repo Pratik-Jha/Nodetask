@@ -4,13 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <style>
-      h3 { color: greenyellow }
-      p { color:lime }
+      h3 { color: cadetblue }
+      p { color: black }
     </style>
 
   </head>
   <body>
-      <h3>{{title}}</h3>
-      <p>{{text}}</p>
+    {{#if title}}
+      <h1>Hi everyone.</h1>
+    {{/if}}
+      <h3>Hi, {{name}}</h3>
+      <p>{{body}}</p>
   </body>
 </html>
